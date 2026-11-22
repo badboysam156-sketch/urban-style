@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Style - Fashion Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{font-family:Arial,sans-serif;background:#fff8fc;color:#29203c}
+header{background:linear-gradient(100deg,#ff45a2,#9655ff,#428cff);color:#fff;text-align:center;padding:25px 10px}
+header h1{font-size:30px;letter-spacing:3px}
+header p{margin-top:8px}
+nav{background:#fff;padding:14px 5px;text-align:center;position:sticky;top:0;z-index:5;box-shadow:0 3px 10px #ddd;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px}
+nav a{text-decoration:none;color:#29203c;font-weight:bold;font-size:13px}
+.hero{background:linear-gradient(130deg,#ffb6dc,#d5b6ff,#a9d9ff);padding:65px 15px;text-align:center}
+.hero h2{font-size:38px;margin-bottom:15px}
+.hero p{font-size:17px;margin-bottom:25px}
+.btn{display:inline-block;background:#ff369b;color:#fff;border:none;border-radius:30px;padding:13px 22px;font-weight:bold;text-decoration:none;cursor:pointer;font-size:15px}
+.section{padding:35px 15px;text-align:center}
+.section h2{margin-bottom:25px;font-size:27px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.category{padding:22px 5px;border-radius:15px;font-weight:bold}
+.cat1{background:#ffd4e9}.cat2{background:#ded1ff}.cat3{background:#c8f1ff}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.product{background:#fff;padding:10px;border-radius:15px;box-shadow:0 4px 15px #e8ddec}
+.product img{width:100%;height:160px;object-fit:cover;border-radius:12px;background:#eee}
+.product h3{font-size:16px;margin:12px 0 7px}
+.price{color:#ed3291;font-size:18px;font-weight:bold;margin-bottom:12px}
+.product button{width:100%;padding:11px 4px;background:#8b50eb;color:#fff;border:none;border-radius:20px;font-weight:bold;cursor:pointer}
+.product button.added{background:#22a559}
+.cart-box{background:#f0e6ff;padding:20px;border-radius:15px;text-align:left}
+.cart-item{background:#fff;border-radius:10px;padding:12px;margin:10px 0}
+.cart-item button{padding:7px 12px;margin:7px 3px 0 0;border:none;border-radius:7px;background:#8b50eb;color:#fff;cursor:pointer}
+.cart-total{font-size:21px;font-weight:bold;margin:18px 0}
+.cart-box .btn{width:100%;text-align:center}
+.contact{background:linear-gradient(120deg,#ffb6dc,#cbb3ff);padding:40px 15px;text-align:center}
+.contact p{margin:12px}
+.contact .btn{margin:5px}
+footer{background:#29203c;color:#fff;text-align:center;padding:22px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);background:#29203c;color:#fff;padding:11px 20px;border-radius:25px;font-size:14px;opacity:0;transition:.3s;z-index:20;pointer-events:none}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:350px){.products{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>URBAN STYLE ✨</h1>
+  <p>FASHION • STYLE • VIBES</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#categories">Categories</a>
+  <a href="#products">Shop</a>
+  <a href="#cart-section">Cart (<span id="nav-count">0</span>)</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section class="hero" id="home">
+  <h2>BE BOLD.<br>BE DIFFERENT.</h2>
+  <p>New Gen-Z Fashion Collection 💖</p>
+  <a href="#products" class="btn">EXPLORE NOW →</a>
+</section>
+
+<section class="section" id="categories">
+  <h2>Shop By Category 🛍️</h2>
+  <div class="categories">
+    <div class="category cat1">👕<br>Men</div>
+    <div class="category cat2">👗<br>Women</div>
+    <div class="category cat3">🧢<br>Kids</div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <h2>Trending Collection 🔥</h2>
+  <div class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" alt="Classic T-Shirt" loading="lazy">
+      <h3>Classic T-Shirt</h3>
+      <p class="price">₹499</p>
+      <button type="button" onclick="addCart('Classic T-Shirt',499,this)">Add to Cart +</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" alt="Blue Denim Jeans" loading="lazy">
+      <h3>Blue Denim Jeans</h3>
+      <p class="price">₹999</p>
+      <button type="button" onclick="addCart('Blue Denim Jeans',999,this)">Add to Cart +</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1544441893-675973e31985?w=500" alt="Streetwear Jacket" loading="lazy">
+      <h3>Streetwear Jacket</h3>
+      <p class="price">₹1499</p>
+      <button type="button" onclick="addCart('Streetwear Jacket',1499,this)">Add to Cart +</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500" alt="Casual Outfit" loading="lazy">
+      <h3>Casual Outfit</h3>
+      <p class="price">₹799</p>
+      <button type="button" onclick="addCart('Casual Outfit',799,this)">Add to Cart +</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cart-section">
+  <h2>My Shopping Cart 🛒</h2>
+  <div class="cart-box">
+    <div id="cart-items">Your cart is empty!</div>
+    <div class="cart-total" id="cart-total">Total: ₹0</div>
+    <button type="button" class="btn" onclick="sendOrder()">Order on WhatsApp 💚</button>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Let's Connect 💜</h2>
+  <p>Fashion is your attitude!</p>
+  <p>📞 +91 95877 40021</p>
+  <a class="btn" href="https://wa.me/919587740021" target="_blank" rel="noopener">Chat on WhatsApp</a>
+  <a class="btn" href="tel:+919587740021">Call Us</a>
+</section>
+
+<footer>
+  <h3>URBAN STYLE ✨</h3>
+  <p>Fashion • Style • Vibes</p>
+  <p>© 2026 Urban Style</p>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const WHATSAPP_NUMBER = "919587740021";
+let cart = [];
+
+try {
+  const saved = JSON.parse(localStorage.getItem("urbanCart"));
+  if (Array.isArray(saved)) cart = saved;
+} catch (e) {}
+
+function saveCart() {
+  try { localStorage.setItem("urbanCart", JSON.stringify(cart)); } catch (e) {}
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+function addCart(name, price, btn) {
+  const item = cart.find(p => p.name === name);
+  if (item) item.quantity++;
+  else cart.push({ name, price, quantity: 1 });
+
+  updateCart();
+  showToast(name + " added to cart ✓");
+
+  if (btn) {
+    btn.textContent = "Added ✓";
+    btn.classList.add("added");
+    setTimeout(() => {
+      btn.textContent = "Add to Cart +";
+      btn.classList.remove("added");
+    }, 1000);
+  }
+}
+
+function updateCart() {
+  const container = document.getElementById("cart-items");
+  let total = 0, count = 0;
+  container.innerHTML = "";
+
+  if (cart.length === 0) {
+    container.textContent = "Your cart is empty!";
+  } else {
+    cart.forEach((item, index) => {
+      total += item.price * item.quantity;
+      count += item.quantity;
+
+      const div = document.createElement("div");
+      div.className = "cart-item";
+
+      const name = document.createElement("b");
+      name.textContent = item.name;
+
+      const details = document.createElement("p");
+      details.textContent = "₹" + item.price + " × " + item.quantity;
+
+      const minus = document.createElement("button");
+      minus.type = "button";
+      minus.textContent = "−";
+      minus.setAttribute("aria-label", "Decrease quantity of " + item.name);
+      minus.onclick = () => changeQty(index, -1);
+
+      const plus = document.createElement("button");
+      plus.type = "button";
+      plus.textContent = "+";
+      plus.setAttribute("aria-label", "Increase quantity of " + item.name);
+      plus.onclick = () => changeQty(index, 1);
+
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.textContent = "Remove";
+      remove.setAttribute("aria-label", "Remove " + item.name);
+      remove.onclick = () => removeItem(index);
+
+      div.append(name, details, minus, plus, remove);
+      container.appendChild(div);
+    });
+  }
+
+  document.getElementById("cart-total").textContent = "Total: ₹" + total;
+  document.getElementById("nav-count").textContent = count;
+  saveCart();
+}
+
+function changeQty(index, amount) {
+  cart[index].quantity += amount;
+  if (cart[index].quantity <= 0) cart.splice(index, 1);
+  updateCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function sendOrder() {
+  if (cart.length === 0) {
+    showToast("Please add products first!");
+    return;
+  }
+
+  let message = "Hello! I want to place an order:\n\n";
+  let total = 0;
+  cart.forEach(item => {
+    message += item.name + " x " + item.quantity + " = ₹" + (item.price * item.quantity) + "\n";
+    total += item.price * item.quantity;
+  });
+  message += "\nTotal Amount: ₹" + total;
+
+  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+}
+
+updateCart();
+</script>
+
+</body>
+</html>
